@@ -34,6 +34,8 @@ void Magic_Square::print() {
     }
 }
 
+// Summing
+
 // Checks if all of the sums of the array are equal
 slice_t check_sum(const slice_t sums) {
     for (unsigned int i = 0; i < sums.size() - 1; i++) {
@@ -105,6 +107,8 @@ slice_t Magic_Square::sum_diag() {
     sums.push_back(get_sum(get_diag_right_left()));
     return sums;
 }
+
+// Creating the magic square
 
 // Generates the magic square
 void Magic_Square::construct() {
