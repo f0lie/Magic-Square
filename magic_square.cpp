@@ -123,6 +123,10 @@ bool Magic_Square::is_empty(const point_t point) {
 }
 
 void Magic_Square::write(const point_t point, const int element) {
+    if (element < 0) {
+        throw std::logic_error("Cannot write negative numbers to board!");
+    }
+
     board[point.first][point.second] = element;
 }
 
