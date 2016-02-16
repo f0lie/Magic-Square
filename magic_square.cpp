@@ -5,7 +5,7 @@
 #include "magic_square.h"
 
 
-Magic_Square::Magic_Square(const int size) : order(size) {
+Magic_Square::Magic_Square(const int size) : order(size), board(order, slice_t(order)) {
     if (order % 2 == 0) {
         throw std::logic_error("Order cannot be even.");
     }
@@ -16,7 +16,6 @@ Magic_Square::Magic_Square(const int size) : order(size) {
         throw std::logic_error("Order cannot be below 3.");
     }
 
-    board.resize(order, slice_t(order));
     construct();
 }
 

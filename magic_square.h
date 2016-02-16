@@ -19,8 +19,8 @@ public:
     void rotate();
 
 private:
-    board_t board;
     const int order;
+    board_t board;
 
     void construct();
     bool is_empty(point_t);
