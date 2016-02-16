@@ -20,10 +20,6 @@ Magic_Square::Magic_Square(const int size) : order(size) {
     construct();
 }
 
-Magic_Square::~Magic_Square() {
-    // Blank because board and order will correctly deallocate themselves.
-}
-
 void Magic_Square::print() {
     for (slice_t slice : board) {
         for (auto element : slice) {

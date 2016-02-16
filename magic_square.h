@@ -10,7 +10,6 @@ typedef std::pair<int, int> point_t;
 class Magic_Square {
 public:
     Magic_Square(const int size);
-    virtual ~Magic_Square();
     void print();
 
     slice_t sum_row();
