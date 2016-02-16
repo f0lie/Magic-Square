@@ -1,6 +1,8 @@
 #include <iostream>
 #include "main.h"
 
+#include <memory>
+
 using std::cout;
 using std::endl;
 using std::cin;
@@ -13,38 +15,28 @@ int main() {
 
     int order = 0;
 
+    std::unique_ptr<Magic_Square> square(new Magic_Square(3));
+
     while (true) {
         try {
             cin >> order;
-
-            if (order % 2 == 0) {
-                throw std::logic_error("Order cannot be even.");
-            }
-            if (order > 15) {
-                throw std::logic_error("Order cannot be above 15.");
-            }
-            if (order < 3) {
-                throw std::logic_error("Order cannot be below 3.");
-            }
-
+            square.reset(new Magic_Square(order));
             break;
         } catch (std::logic_error e) {
             cout << e.what() << endl;
         }
     }
 
-    Magic_Square square = Magic_Square(order);
-
     for (int i = 0; i < 3; i++) {
-        square.print();
+        square->print();
         cout << "Rows sum: ";
-        print(square.sum_row());
+        print(square->sum_row());
         cout << "Cols sum: ";
-        print(square.sum_col());
+        print(square->sum_col());
         cout << "Diagonals sum: ";
-        print(square.sum_diag());
+        print(square->sum_diag());
 
-        square.rotate();
+        square->rotate();
 
         cout << endl << endl;
     }
@@ -60,7 +52,17 @@ void print(slice_t sum) {
 }
 
 Magic_Square::Magic_Square(const int size) : order(size) {
-    board.resize(size, slice_t(size));
+    if (order % 2 == 0) {
+        throw std::logic_error("Order cannot be even.");
+    }
+    if (order > 15) {
+        throw std::logic_error("Order cannot be above 15.");
+    }
+    if (order < 3) {
+        throw std::logic_error("Order cannot be below 3.");
+    }
+
+    board.resize(order, slice_t(order));
     construct();
 }
 
