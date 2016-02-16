@@ -5,7 +5,7 @@
 
 typedef std::vector<int> slice_t;
 typedef std::vector<slice_t> board_t;
-typedef std::pair<int, int> point_t;
+typedef std::pair<const int, const int> point_t;
 
 class Magic_Square {
 public:
@@ -23,10 +23,10 @@ private:
     board_t board;
 
     void construct();
-    bool is_empty(point_t);
+    bool is_empty(const point_t);
 
-    void write(point_t point, int element);
-    point_t move(point_t point);
+    void write(const point_t point, const int element);
+    point_t move(const point_t point);
     point_t wrap(point_t point);
 
     slice_t get_row(const int row);

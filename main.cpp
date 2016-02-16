@@ -1,5 +1,4 @@
 #include <iostream>
-#include <memory>
 
 #include "main.h"
 #include "magic_square.h"
@@ -9,7 +8,7 @@ using std::endl;
 using std::cin;
 using std::vector;
 
-void print(slice_t sum);
+void print(const slice_t sum);
 
 int main() {
     cout << "Enter the size of the magic square" << endl;
@@ -45,7 +44,7 @@ int main() {
     return 0;
 }
 
-void print(slice_t sum) {
+void print(const slice_t sum) {
     for (slice_t::const_iterator slice_it = sum.begin(); slice_it != sum.end(); slice_it++) {
         cout << *slice_it << " ";
     }

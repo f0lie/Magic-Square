@@ -3,7 +3,7 @@
 #include <algorithm>
 
 #include "magic_square.h"
-
+#include "main.h"
 
 Magic_Square::Magic_Square(const int size) : order(size), board(order, slice_t(order)) {
     if (order % 2 == 0) {
@@ -35,7 +35,7 @@ void Magic_Square::print() {
 }
 
 // Checks if all of the sums of the array are equal
-slice_t check_sum(slice_t sums) {
+slice_t check_sum(const slice_t sums) {
     for (unsigned int i = 0; i != sums.size() - 1; i++) {
         if (sums[i] != sums[i + 1]) {
             throw std::logic_error("Not a magic square!");
@@ -45,7 +45,7 @@ slice_t check_sum(slice_t sums) {
 }
 
 // Get the sum of an array
-int get_sum(slice_t slice) {
+int get_sum(const slice_t slice) {
     int sum = 0;
 
     for (auto element : slice) {
@@ -109,43 +109,43 @@ slice_t Magic_Square::sum_diag() {
 // Generates the magic square
 void Magic_Square::construct() {
     // Start in middle top of the square
-    point_t point = point_t(0, order/2);
+    std::unique_ptr<point_t> point_ptr(new point_t(0, order / 2));
 
     for (int i = 1; i <= order*order; i++) {
-        write(point, i);
-        point = move(point);
+        write(*point_ptr, i);
+        point_ptr.reset(new point_t(move(*point_ptr)));
     }
 }
 
 // Checks if the point hasn't been write in yet
-bool Magic_Square::is_empty(point_t point) {
+bool Magic_Square::is_empty(const point_t point) {
     return board[point.first][point.second] == 0;
 }
 
-void Magic_Square::write(point_t point, int element) {
+void Magic_Square::write(const point_t point, const int element) {
     board[point.first][point.second] = element;
 }
 
 // Move in according to the magic square pattern
 point_t Magic_Square::move(point_t point) {
     // Move new point up right.
-    point_t point_new = point_t(point.first - 1, point.second + 1);
+    std::unique_ptr<point_t> point_ptr(new point_t(point.first - 1, point.second + 1));
 
-    point_new = wrap(point_new);
+    point_ptr.reset(new point_t(wrap(*point_ptr)));
 
     // If point is occupied then move point one down.
-    if (!is_empty(point_new)) {
+    if (!is_empty(*point_ptr)) {
         // The (row + 2, col - 1) is to negate the first move.
         // So the result is (row + 1, col), below the original position.
-        point_new = point_t(point_new.first + 2, point_new.second - 1);
-        point_new = wrap(point_new);
+        point_ptr.reset(new point_t(point_ptr->first + 2, point_ptr->second - 1));
+        point_ptr.reset(new point_t(wrap(*point_ptr)));
     }
 
-    return point_new;
+    return *point_ptr;
 }
 
 // Move the point if it is outside of the bounds of the square
-point_t Magic_Square::wrap(point_t point) {
+point_t Magic_Square::wrap(const point_t point) {
     int coord_x = point.first;
     int coord_y = point.second;
 
