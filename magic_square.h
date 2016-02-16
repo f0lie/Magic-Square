@@ -9,7 +9,7 @@ typedef std::pair<const int, const int> point_t;
 
 class Magic_Square {
 public:
-    Magic_Square(const int size);
+    explicit Magic_Square(const int size);
     void print();
 
     slice_t sum_row();
