@@ -27,7 +27,7 @@ private:
 
     void write(const point_t point, const int element);
     point_t move(const point_t point);
-    point_t wrap(point_t point);
+    point_t wrap(const point_t point);
 
     slice_t get_row(const int row);
     slice_t get_col(const int col);

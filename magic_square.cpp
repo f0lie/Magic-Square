@@ -127,7 +127,7 @@ void Magic_Square::write(const point_t point, const int element) {
 }
 
 // Move in according to the magic square pattern
-point_t Magic_Square::move(point_t point) {
+point_t Magic_Square::move(const point_t point) {
     // Move new point up right.
     std::unique_ptr<point_t> point_ptr(new point_t(point.first - 1, point.second + 1));
 
