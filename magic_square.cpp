@@ -30,7 +30,7 @@ void Magic_Square::print() {
                 std::cout << element << " ";
             }
         }
-        std::cout << std::endl;
+        std::cout << "\n";
     }
 }
 

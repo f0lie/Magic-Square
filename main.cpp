@@ -4,14 +4,13 @@
 #include "magic_square.h"
 
 using std::cout;
-using std::endl;
 using std::cin;
 using std::vector;
 
 void print(const slice_t sum);
 
 int main() {
-    cout << "Enter the size of the magic square" << endl;
+    cout << "Enter the size of the magic square \n";
 
     int order = 0;
 
@@ -23,7 +22,7 @@ int main() {
             square.reset(new Magic_Square(order));
             break;
         } catch (std::logic_error e) {
-            cout << e.what() << endl;
+            cout << e.what() << "\n";
         }
     }
 
@@ -38,7 +37,7 @@ int main() {
 
         square->rotate();
 
-        cout << endl << endl;
+        cout << "\n\n";
     }
 
     return 0;
@@ -48,6 +47,6 @@ void print(const slice_t sum) {
     for (slice_t::const_iterator slice_it = sum.begin(); slice_it != sum.end(); slice_it++) {
         cout << *slice_it << " ";
     }
-    cout << endl;
+    cout << "\n";
 }
 
