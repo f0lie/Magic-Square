@@ -2,8 +2,6 @@
 #define MAGIC_SQUARE_MAGIC_SQUARE_H
 
 #include <vector>
-#include <utility>
-#include <algorithm>
 
 typedef std::vector<int> slice_t;
 typedef std::vector<slice_t> board_t;

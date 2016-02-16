@@ -1,4 +1,7 @@
 #include <iostream>
+#include <utility>
+#include <algorithm>
+
 #include "magic_square.h"
 
 
