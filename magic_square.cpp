@@ -37,17 +37,16 @@ void Magic_Square::print() {
 // Summing
 
 // Checks if all of the sums of the array are equal
-slice_t check_sum(const slice_t sums) {
+void check_sum(const slice_t& sums) {
     for (unsigned int i = 0; i < sums.size() - 1; i++) {
         if (sums[i] != sums[i + 1]) {
             throw std::logic_error("Not a magic square!");
         }
     }
-    return sums;
 }
 
 // Get the sum of an array
-int get_sum(const slice_t slice) {
+int get_sum(const slice_t& slice) {
     int sum = 0;
 
     for (auto element : slice) {
@@ -66,7 +65,8 @@ slice_t Magic_Square::sum_row() {
     for (int i = 0; i != order; i++) {
         sums.push_back(get_sum(get_row(i)));
     }
-    return check_sum(sums);
+    check_sum(sums);
+    return sums;
 }
 
 slice_t Magic_Square::get_col(const int col) {
@@ -82,7 +82,8 @@ slice_t Magic_Square::sum_col() {
     for (int i = 0; i != order; i++) {
         sums.push_back(get_sum(get_col(i)));
     }
-    return check_sum(sums);
+    check_sum(sums);
+    return sums;
 }
 
 slice_t Magic_Square::get_diag_left_right() {
@@ -105,6 +106,7 @@ slice_t Magic_Square::sum_diag() {
     slice_t sums;
     sums.push_back(get_sum(get_diag_left_right()));
     sums.push_back(get_sum(get_diag_right_left()));
+    check_sum(sums);
     return sums;
 }
 
@@ -113,20 +115,20 @@ slice_t Magic_Square::sum_diag() {
 // Generates the magic square
 void Magic_Square::construct() {
     // Start in middle top of the square
-    std::unique_ptr<point_t> point_ptr(new point_t(0, order / 2));
+    auto point = point_t(0, order / 2);
 
     for (int i = 1; i <= order*order; i++) {
-        write(*point_ptr, i);
-        point_ptr.reset(new point_t(move(*point_ptr)));
+        write(point, i);
+        point = move(point);
     }
 }
 
 // Checks if the point hasn't been write in yet
-bool Magic_Square::is_empty(const point_t point) {
+bool Magic_Square::is_empty(const point_t& point) {
     return board[point.first][point.second] == 0;
 }
 
-void Magic_Square::write(const point_t point, const int element) {
+void Magic_Square::write(const point_t& point, const int element) {
     if (element < 0) {
         throw std::logic_error("Cannot write negative numbers to board!");
     }
@@ -137,19 +139,19 @@ void Magic_Square::write(const point_t point, const int element) {
 // Move in according to the magic square pattern
 point_t Magic_Square::move(const point_t point) {
     // Move new point up right.
-    std::unique_ptr<point_t> point_ptr(new point_t(point.first - 1, point.second + 1));
+    auto point_new = point_t(point.first - 1, point.second + 1);
 
-    point_ptr.reset(new point_t(wrap(*point_ptr)));
+    point_new = wrap(point_new);
 
     // If point is occupied then move point one down.
-    if (!is_empty(*point_ptr)) {
+    if (!is_empty(point_new)) {
         // The (row + 2, col - 1) is to negate the first move.
         // So the result is (row + 1, col), below the original position.
-        point_ptr.reset(new point_t(point_ptr->first + 2, point_ptr->second - 1));
-        point_ptr.reset(new point_t(wrap(*point_ptr)));
+        point_new = point_t(point_new.first + 2, point_new.second - 1);
+        point_new = wrap(point_new);
     }
 
-    return *point_ptr;
+    return point_new;
 }
 
 // Move the point if it is outside of the bounds of the square
