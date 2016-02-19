@@ -44,7 +44,7 @@ int main() {
 }
 
 void print(const slice_t sum) {
-    for (auto element : sum) {
+    for (const auto& element : sum) {
         cout << element << " ";
     }
     cout << "\n";

@@ -20,8 +20,8 @@ Magic_Square::Magic_Square(const int size) : order(size), board(order, slice_t(o
 }
 
 void Magic_Square::print() {
-    for (slice_t slice : board) {
-        for (auto element : slice) {
+    for (const auto& slice : board) {
+        for (const auto& element : slice) {
             if (element < 10) {
                 std::cout << "  " << element << " ";
             } else if(element < 100) {
@@ -48,11 +48,9 @@ void check_sum(const slice_t& sums) {
 // Get the sum of an array
 int get_sum(const slice_t& slice) {
     int sum = 0;
-
-    for (auto element : slice) {
+    for (const auto& element : slice) {
         sum += element;
     }
-
     return sum;
 }
 
@@ -71,7 +69,7 @@ slice_t Magic_Square::sum_row() {
 
 slice_t Magic_Square::get_col(const int col) {
     slice_t out_col;
-    for (slice_t slice : board) {
+    for (const auto& slice : board) {
         out_col.push_back((slice)[col]);
     }
     return out_col;
@@ -116,7 +114,6 @@ slice_t Magic_Square::sum_diag() {
 void Magic_Square::construct() {
     // Start in middle top of the square
     auto point = point_t(0, order / 2);
-
     for (int i = 1; i <= order*order; i++) {
         write(point, i);
         point = move(point);
@@ -132,7 +129,6 @@ void Magic_Square::write(const point_t& point, const int element) {
     if (element < 0) {
         throw std::logic_error("Cannot write negative numbers to board!");
     }
-
     board[point.first][point.second] = element;
 }
 
