@@ -44,8 +44,8 @@ int main() {
 }
 
 void print(const slice_t sum) {
-    for (slice_t::const_iterator slice_it = sum.begin(); slice_it != sum.end(); slice_it++) {
-        cout << *slice_it << " ";
+    for (auto element : sum) {
+        cout << element << " ";
     }
     cout << "\n";
 }
