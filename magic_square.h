@@ -3,9 +3,9 @@
 
 #include <vector>
 
-typedef std::vector<int> slice_t;
-typedef std::vector<slice_t> board_t;
-typedef std::pair<int, int> point_t;
+using slice_t = std::vector<int>;
+using board_t = std::vector<slice_t>;
+using point_t = std::pair<int, int>;
 
 class Magic_Square {
 public:
